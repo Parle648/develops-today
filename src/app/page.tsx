@@ -21,8 +21,6 @@ export default function Home() {
   }
 
   useEffect(() => {
-    console.log(selects);
-    
     if (selects.some((item: string) => item === '')) {
       setIsVisible(false)
     } else {
@@ -59,7 +57,7 @@ export default function Home() {
           </div>
 
           <a className={`${isVisible ? '' : 'hidden'} w-full bg-blue-500 text-white py-2 rounded disabled:opacity-50 p-6`} 
-          id="nextButton" href={`./result/?id=${selects[0]}&year=${selects[1]}`}>Next</a>
+          id="nextButton" href={`./result/[${selects[0]}]/[${selects[1]}]`}>Next</a>
       </div>
     </main>
   );
