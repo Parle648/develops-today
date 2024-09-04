@@ -1,4 +1,35 @@
+'use client'
+
+import { useEffect, useState } from "react";
+import { options, years } from "./db";
+
 export default function Home() {
+  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const [selects, setSelects] = useState<[string, string]>(['', '']);
+
+  const changeSelects = (event: any) => {
+    setSelects(() => {
+      if (event.target.parentNode.id === "makeId") {
+        return [event.target.value, selects[1]]
+      }
+      if (event.target.parentNode.id === "year") {
+        return [selects[0], event.target.value]
+      }
+
+      return ['', '']
+    })
+  }
+
+  useEffect(() => {
+    console.log(selects);
+    
+    if (selects.some((item: string) => item === '')) {
+      setIsVisible(false)
+    } else {
+      setIsVisible(true)
+    }
+  }, [selects])
+
   return (
     <main className="bg-gray-100 flex items-center justify-center min-h-screen">
       <div className="bg-white p-8 rounded shadow-lg w-96">
@@ -6,19 +37,29 @@ export default function Home() {
 
           <div className="mb-4">
               <label className="block text-gray-700">Vehicle Type</label>
-              <select id="vehicleType" className="w-full mt-2 p-2 border border-gray-300 rounded">
-                  <option value="">Select Vehicle Type</option>
+              <select id="makeId" className="w-full mt-2 p-2 border border-gray-300 rounded">
+                <option value="" onClick={changeSelects}>Select Vehicle Type</option>
+                {options.map(option => (
+                <option key={option.id} value={`${option.id}`} onClick={changeSelects}>
+                  {option.name}
+                </option>))}
               </select>
           </div>
 
           <div className="mb-6">
               <label className="block text-gray-700">Model Year</label>
-              <select id="modelYear" className="w-full mt-2 p-2 border border-gray-300 rounded">
-                  <option value="">Select Model Year</option>
+              <select id="year" className="w-full mt-2 p-2 border border-gray-300 rounded">
+                  <option value="" onClick={changeSelects}>Select Model Year</option>
+                  {years.map((year: number) => (
+                    <option key={year} value={`${year}`} onClick={changeSelects}>
+                    {year}
+                    </option>
+                  ))}
               </select>
           </div>
 
-          <button id="nextButton" disabled className="w-full bg-blue-500 text-white py-2 rounded disabled:opacity-50">Next</button>
+          <a className={`${isVisible ? '' : 'hidden'} w-full bg-blue-500 text-white py-2 rounded disabled:opacity-50 p-6`} 
+          id="nextButton" href={`./result/?id=${selects[0]}&year=${selects[1]}`}>Next</a>
       </div>
     </main>
   );
