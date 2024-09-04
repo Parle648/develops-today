@@ -17,8 +17,6 @@ async function getVehicles(makeId: string, year: string) {
 export default function Filters() {
     const {movieId, year} = useParams();
 
-    console.log(decodeURIComponent(movieId as string).replace(/[\[\]]/g, ''), decodeURIComponent(year as string).replace(/[\[\]]/g, ''));
-    
     const [vehicles, setVehicles] = useState([]);
 
     useEffect(() => {
