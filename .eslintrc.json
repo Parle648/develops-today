@@ -1,12 +1,5 @@
 {
   "extends": [
-    "next/core-web-vitals", 
-    "plugin:@typescript-eslint/recommended"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "rules": {
-    "no-unused-vars": "off", // Отключаем стандартное правило
-    "@typescript-eslint/no-unused-vars": ["warn"] // Включаем TS-версию правила
-  }
+    "next/core-web-vitals"
+  ]
 }
